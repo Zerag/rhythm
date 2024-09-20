@@ -1,4 +1,4 @@
 # rhythm
 I may cook here
 
-Crear un juego de ritmo con una mecánica o estética única para PC
+Crear un juego de ritmo en navegador (I'm cooked)
