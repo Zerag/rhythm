@@ -25,36 +25,51 @@ function startGame() {
     updateGame();
 }
 
-// Crear "notas" (objetos que caen)
+// Crear "notas" con tiempo de llegada
 function createNotes() {
-    // Cada nota se genera a intervalos regulares
     setInterval(() => {
         const note = {
-            x: Math.random() * (canvas.width - 50),  // Posición aleatoria
+            x: 0,  // Las notas cubrirán todo el ancho del canvas
             y: 0,
-            size: 50
+            size: 50,
+            timeToHit: Date.now() + 2000 // La nota llegará al punto de acierto en 3 segundos
         };
         notes.push(note);
-    }, 1000); // Cada segundo
+    }, 1000); // Generar nota cada segundo
 }
 
-// Actualización del juego
+// Variables del área de acierto (guía)
+const hitZoneY = canvas.height - 50;  // Una línea delgada al final del canvas
+const lineThickness = 50; 
+const noteThickness = 5; // Grosor de la guía y las notas
+
+// Actualización del juego (ajustar para líneas delgadas)
 function updateGame() {
     if (isGameRunning) {
         // Limpiar el canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+        // Dibujar la línea de acierto (guía)
+        ctx.fillStyle = 'green';
+        ctx.fillRect(0, hitZoneY, canvas.width, lineThickness);  // Línea de la guía
+
         // Dibujar y mover las notas
+        const currentTime = Date.now();
         notes.forEach((note, index) => {
-            note.y += gameSpeed;
+            // Calcular la posición de la nota en base al tiempo que le queda para llegar a la línea
+            const timeLeft = note.timeToHit - currentTime;
 
-            // Dibujar la nota
-            ctx.fillStyle = 'red';
-            ctx.fillRect(note.x, note.y, note.size, note.size);
+            // Si el tiempo es negativo, significa que la nota debería haber llegado o haber sido presionada
+            if (timeLeft < 0) {
+                notes.splice(index, 1);  // Eliminar la nota si pasó el tiempo
+            } else {
+                // Mover la nota en función del tiempo restante
+                const percentComplete = (3000 - timeLeft) / 3000;
+                note.y = percentComplete * canvas.height;
 
-            // Comprobar si la nota sale de la pantalla
-            if (note.y > canvas.height) {
-                notes.splice(index, 1);  // Eliminar la nota
+                // Dibujar la nota como una línea delgada
+                ctx.fillStyle = 'red';
+                ctx.fillRect(note.x, note.y, canvas.width, lineThickness);  // Línea para cada nota
             }
         });
 
@@ -62,6 +77,9 @@ function updateGame() {
         requestAnimationFrame(updateGame);
     }
 }
+
+
+
 
 // Escuchar las teclas presionadas (para detectar si el jugador acierta)
 window.addEventListener('keydown', (e) => {
@@ -73,14 +91,68 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
-// Comprobar si el jugador acertó
+function checkHit() {
+    const currentTime = Date.now();  // Tiempo actual en milisegundos
+    
+    notes.forEach((note, index) => {
+        const timeDifference = Math.abs(note.timeToHit - currentTime);
+
+        // Definir ventanas de precisión en milisegundos
+        const perfectWindow = 100;  // ±100ms para Perfecto
+        const goodWindow = 250;     // ±250ms para Bien
+        const badWindow = 500;      // ±500ms para Malo
+
+        // Calcular la precisión basado en el tiempo
+        if (timeDifference <= perfectWindow) {
+            lastAccuracy = 'Perfecto';
+            score += 100;
+        } else if (timeDifference <= goodWindow) {
+            lastAccuracy = 'Bien';
+            score += 50;
+        } else if (timeDifference <= badWindow) {
+            lastAccuracy = 'Malo';
+            score += 10;
+        } else {
+            // Si está fuera de la ventana de acierto, no hacemos nada
+            return;
+        }
+
+        // Mostrar la precisión en la pantalla
+        accuracyText.textContent = lastAccuracy;
+
+        // Eliminar la nota del arreglo una vez se presiona
+        notes.splice(index, 1);
+        console.log(`¡${lastAccuracy}! Puntuación: ${score}`);
+    });
+}
+
+const accuracyText = document.getElementById('accuracy-text');  // Seleccionamos el elemento donde se mostrará la precisión
+
+// Modificar checkHit para actualizar la precisión visual
 function checkHit() {
     notes.forEach((note, index) => {
-        // Si la nota está cerca del fondo, cuenta como acierto
-        if (note.y > canvas.height - 100 && note.y < canvas.height - 50) {
-            score += 10;
-            notes.splice(index, 1);  // Eliminar la nota
-            console.log('¡Acierto! Puntuación: ' + score);
+        const noteCenter = note.y + lineThickness / 2;
+        
+        if (noteCenter > hitZoneY && noteCenter < hitZoneY + lineThickness) {
+            const hitAccuracy = Math.abs((hitZoneY + lineThickness / 2) - noteCenter);
+
+            if (hitAccuracy < 5) {
+                lastAccuracy = 'Perfecto';
+                score += 100;
+            } else if (hitAccuracy < 15) {
+                lastAccuracy = 'Bien';
+                score += 50;
+            } else {
+                lastAccuracy = 'Malo';
+                score += 10;
+            }
+
+            // Mostrar la precisión en la nueva sección
+            accuracyText.textContent = lastAccuracy;
+
+            // Eliminar la nota una vez se presiona
+            notes.splice(index, 1);
+            console.log(`¡${lastAccuracy}! Puntuación: ${score}`);
         }
     });
 }
