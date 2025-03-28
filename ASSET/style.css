@@ -1,0 +1,755 @@
+/* General Styles */
+:root {
+    /* Colors */
+    --cultured: hsl(225, 20%, 96%);
+    --onyx: hsl(207, 8%, 21%);
+    --white: #fff;
+	--gray-white: #F2F2F2;
+	--gray: #333333;
+	--gray-medium: #E4E4E4;
+    --gray-strong: #cbcbcb;
+    --gray-semi-strong: #F6F5F6;
+    --dark: #0f0f0f;
+    --blue-lite: #DCE6FA;
+    --blue-main: #021b60;
+    --blue-dark: #1E3A8A;
+    --blue-full-dark: #253985;
+    --blue-alternative: #96C8FF;
+    --blue-death: #F5FAFF;
+    --gray-main: #9397a0;
+
+    /* Font Weight*/
+    --fw-bold: 700;
+    --fw-semi-bold: 600;
+
+    --bpm: 136; /* Change this to match your song's BPM */
+    --beat-duration: calc(60s / var(--bpm));
+    --jump-offset: calc(var(--beat-duration) * 3); /* Adjust multiplier to sync with specific beats */
+}
+
+*, *::after, *::before{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+p {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+footer {
+    display: block;
+    align-items: center;
+    padding: 10px 160px;
+
+    background-color: var(--dark);
+}
+
+/* Header */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--dark);
+    color: var(--white);
+    width: 100%;
+}
+
+.header__title {
+    display: flex;
+    gap: 8px;
+}
+
+.header__container {
+    position: sticky;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 42px;
+    height: 72px;
+}
+
+.header__logo {
+    font-size: 18px;
+}
+
+.header__nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.nav__link {
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+}
+
+.nav__button {
+    font-family: 'Be Vietnam Pro';
+    text-decoration: none;
+    display: flex;
+    padding-inline: 16px;
+    padding-block: 8px;
+    border: 1px solid #e4e4e4;
+    border-radius: 6px;
+    color: var(--white);
+    font-weight: 600;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    padding: 140px 165px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 48px;
+    background-color: var(--blue-main);
+    color: var(--blue-death);
+    z-index: 1;
+}
+
+.hero__content {
+    position: relative;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    font-weight: 600;
+    color: var(--white);
+}
+
+.hero__title {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 60px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.hero__description {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 20px;
+    text-align: center;
+}
+
+.hero__actions {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+}
+
+/* Button */
+.button {
+    text-decoration: none;
+    padding: 12px 32px;
+    border-radius: 6px;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.download-button {
+    color: var(--white);
+    text-decoration: none;
+    margin: 1rem;
+    font-size: 1.3rem;
+}
+
+.button--dark {
+    background-color: var(--dark);
+    color: var(--blue-main);
+}
+
+/* Banner Section */
+.banner {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    padding-block: 160px;
+    align-self: center;
+    text-align: center;
+    justify-content: center;
+    background-color: var(--dark);
+}
+
+.banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(to bottom, 
+        rgba(var(--dark), var(--dark), var(--dark), 0) 0%,
+        rgba(var(--dark), var(--dark), var(--dark), 0.95) 50%,
+        rgba(var(--dark), var(--dark), var(--dark), 1) 100%
+    );
+    pointer-events: none;
+}
+
+.banner__title {
+    margin: 0px;
+    font-size: 48px;
+    font-weight: var(--fw-bold);
+    color: var(--white);
+    z-index: 2;
+    overflow: visible;
+    white-space: normal;
+
+}
+
+.banner__description {
+    width: 640px;
+    margin:auto;
+    color: var(--gray-main);
+    font-weight: var(--fw-semi-bold);
+    font-size: 20px;
+    z-index: 2;
+}
+
+.banner__cards {
+    display: grid;
+    grid-template-areas:
+        "card1 card2"
+        "card3 card3";
+    gap: 48px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    z-index: 2;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-weight: var(--fw-bold);
+    margin: 0px;
+    gap: 12px;
+    
+    padding: 24px;
+    background-color: var(--gray);
+    border-radius: 8px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.card:nth-child(1) {
+    grid-area: card1;
+}
+
+.card:nth-child(2) {
+    grid-area: card2;
+}
+
+.card:nth-child(3) {
+    grid-area: card3;
+    margin: auto;
+}
+
+span.card__icon {
+    margin: auto;
+    padding: 12px;
+    width: 56px;
+    height: 56px;
+    align-self: center;
+    align-items: center;
+    font-size: 32px;
+    font-weight: 500;
+
+
+    background-color: var(--blue-lite);
+    border-radius: 50%;
+    color: var(--blue-main);
+}
+
+.card__title {
+    font-size: 1.25rem;
+    color: var(--blue-dark);
+}
+
+.card__description {
+    font-size: 16px;
+    color: var(--gray-main);
+}
+
+.card__image {
+    width: auto;
+    height: 190px;
+    object-fit: none;
+}
+
+.rating {
+    text-align: left;
+    font-weight: 500;
+    color: var(--gray-main);
+}
+
+.courses {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+    padding: 90px;
+}
+
+.courses__description {
+    color: var(--gray-main);
+    font-weight: var(--fw-semi-bold);
+    font-size: 20px;
+}
+
+.reviews {
+    display: flex;
+    flex-direction: column;
+    padding-top: 120px;
+    padding-bottom: 120px;
+    gap: 12px;
+    text-align: center;
+
+    background-color: var(--blue-main);
+}
+
+.card-grid-B {
+    display: grid;
+    grid-template-areas:
+        "card1 card2"
+        "card3 card3";
+    gap: 48px;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-B {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-weight: var(--fw-bold);
+    margin: 0px;
+    gap: 12px;
+    background-color: var(--gray);
+    
+    padding: 24px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px solid var(--gray-medium);
+    border-radius: 8px;
+    width: 430px;
+}
+
+.card-B:nth-child(1) {
+    grid-area: card1;
+}
+
+.card-B:nth-child(2) {
+    grid-area: card2;
+}
+
+.card-B:nth-child(3) {
+    grid-area: card3;
+    margin: auto;
+}
+
+span.card-B__icon {
+    margin: auto;
+    padding: 12px;
+    width: 56px;
+    height: 56px;
+    align-self: center;
+    align-items: center;
+    font-size: 32px;
+    font-weight: 500;
+
+
+    background-color: var(--blue-lite);
+    border-radius: 50%;
+    color: var(--blue-main);
+}
+
+.card-B__title {
+    font-size: 1.25rem;
+    color: var(--blue-dark);
+}
+
+.card-B__description {
+    font-style: italic;
+    font-weight: 400;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    padding-block: 120px;
+    gap: 12px;
+    
+    text-align: center;
+    background-color: var(--blue-main);
+}
+
+.form__input {
+    display: flex;
+    align-self: center;
+    gap: 48px;
+}
+
+.form__input-container {
+    border: 1px solid var(--dark);
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    width: 250px;
+    color: var(--blue-alternative);
+}
+
+.form__input-container::placeholder {
+    color: #C8DCFA;
+}
+
+
+.terms {
+    color: var(--blue-lite);
+    font-size: 0.875rem;
+    margin: auto;
+    width: 450px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 50px;
+
+    border-bottom: 1px solid var(--blue-main);
+}
+
+.footer__block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.block__title {
+    color: var(--white);
+    font-size: 1.25rem;
+}
+
+.block__link {
+    font-size: 15px;
+    text-decoration: none;
+    color: var(--white);
+}   
+
+.rights {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: var(--blue-alternative);
+}
+
+.rights__title {
+    font-weight: 500;
+}
+
+.rights__terms-policy {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    padding-block: 50px;
+}
+
+/* Estilos para los íconos flotantes */
+.floating-icon {
+    position: absolute;
+    font-size: 50px;
+    color: rgba(0, 0, 0, 0.2);
+    /* Variable para la rotación inicial, que se asignará vía JavaScript */
+    --init-rot: 0deg;
+    transform: translate(0, 0) rotate(var(--init-rot));
+    animation: floatAnimation 10s ease-in-out infinite alternate;
+}
+  
+    /* Animación que suma 10deg a la rotación inicial */
+@keyframes floatAnimation {
+    0% {
+        transform: translateY(0px) translateX(0px) rotate(var(--init-rot));
+    }
+    100% {
+        transform: translateY(-20px) translateX(10px) rotate(calc(var(--init-rot) + 20deg));
+    }
+}
+  
+/* Botón toggle de música */
+.toggle-music {
+    cursor: pointer;
+    padding: 8px 16px;
+    background-color: var(--blue-main);
+    border: none;
+    border-radius: 4px;
+    color: var(--white);
+    font-size: 1rem;
+  }
+
+/* Overwriting */
+.--sticky-header {
+    top: 0;
+    z-index: 1000;
+}
+
+.--text-left {
+    text-align: left;
+}
+
+.--two-card {
+    display: flex;
+    gap: 48px;
+    align-self: center;
+}
+
+.--dark {
+    color: var(--dark);
+}
+
+.--blue {
+    color: var(--blue-dark);
+}
+
+.--blue-alternative {
+    color: var(--blue-alternative);
+}
+
+.--unitalic {
+    font-style: normal;
+}
+
+.--unlink {
+    text-decoration: none;
+}
+
+.--flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.--rainbow-text { 
+    font-size: 50px;
+    font-weight: bold;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.--unmargin {
+    margin: 0px;
+}
+
+.--break-text {
+    display: inline-flex;
+}
+
+.--break-text span {
+    display: inline-block;
+    transform: rotate(var(--rotation));
+    transition: transform 0.3s ease;
+}
+
+.--break-text span:hover {
+    transform: rotate(0deg);
+}
+
+/* funsies */
+.--bpm-jump {
+    display: inline-block; /* Asegura que se pueda aplicar transform */
+    animation: jump var(--beat-duration) infinite ease-in-out;
+    animation-delay: var(--jump-offset);
+  }
+  
+  /* Animación: el objeto salta hacia arriba en el medio del ciclo */
+@keyframes jump {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    90% {
+      transform: translateY(-0.5rem); /* Puedes ajustar la altura del salto */
+    }
+}
+  
+.music-off .--bpm-jump {
+    animation-play-state: paused;
+}
+
+.--wave-text {
+    display: inline-flex;
+    font-size: 1.2rem;
+    font-weight: bold;
+    overflow: hidden;
+    padding-top: 10px;
+}
+
+.--wave-text span:nth-child(1) { --i: 0; }
+.--wave-text span:nth-child(2) { --i: 1; }
+.--wave-text span:nth-child(3) { --i: 2; }
+.--wave-text span:nth-child(4) { --i: 3; }
+.--wave-text span:nth-child(5) { --i: 4; }
+.--wave-text span:nth-child(6) { --i: 5; }
+.--wave-text span:nth-child(7) { --i: 6; }
+.--wave-text span:nth-child(8) { --i: 7; }
+.--wave-text span:nth-child(9) { --i: 8; }
+.--wave-text span:nth-child(10) { --i: 9; }
+.--wave-text span:nth-child(11) { --i: 10; }
+.--wave-text span:nth-child(12) { --i: 11; }
+.--wave-text span:nth-child(13) { --i: 12; }
+.--wave-text span:nth-child(14) { --i: 13; }
+.--wave-text span:nth-child(15) { --i: 14; }
+.--wave-text span:nth-child(16) { --i: 15; }
+.--wave-text span:nth-child(17) { --i: 16; }
+.--wave-text span:nth-child(18) { --i: 17; }
+.--wave-text span:nth-child(19) { --i: 18; }
+.--wave-text span:nth-child(20) { --i: 19; }
+.--wave-text span:nth-child(21) { --i: 20; }
+.--wave-text span:nth-child(22) { --i: 21; }
+.--wave-text span:nth-child(23) { --i: 22; }
+.--wave-text span:nth-child(24) { --i: 23; }
+.--wave-text span:nth-child(25) { --i: 24; }
+.--wave-text span:nth-child(26) { --i: 25; }
+
+.--wave-text span {
+    display: inline-block;
+    animation: wave var(--beat-duration) infinite ease-in-out;
+    animation-delay: calc(var(--jump-offset) + (var(--i) * var(--beat-duration) / 4));
+    transform-origin: bottom center;
+    z-index: 2;
+}
+
+.--wave-text span.space {
+    display: inline-block;
+    width: 0.5em; /* Adjust this value to control space width */
+    animation: none; /* Don't animate the space */
+}
+
+@keyframes wave {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-0.3rem);
+    }
+}
+
+
+.rainbow-text {
+    display: inline-block;
+    text-transform: uppercase;
+    transition: color 0.3s ease;  /* Optional smooth color transition */
+}
+
+.rainbow-text span {
+    display: inline-block;
+    transition: color 0.3s ease;  /* Smooth transition for each letter */
+}
+
+/* Only start the color animation on hover */
+.rainbow-text:hover span {
+    animation: colorShift 3s linear infinite;
+}
+
+/* Color shifting animation */
+@keyframes colorShift {
+    0%   { color: rgb(255, 125, 125); }   /* Red */
+    20%  { color: rgb(255, 209, 122); }   /* Orange */
+    40%  { color: rgb(255, 255, 128); }   /* Yellow */
+    60%  { color: rgb(130, 255, 130); }   /* Green */
+    80%  { color: rgb(122, 122, 255); }   /* Blue */
+    100% { color: rgb(255, 125, 125); }   /* Loop Back to Red */
+}
+
+/* Apply staggered delays per letter */
+.rainbow-text span:nth-child(1) { animation-delay: 0s; }
+.rainbow-text span:nth-child(2) { animation-delay: 0.2s; }
+.rainbow-text span:nth-child(3) { animation-delay: 0.4s; }
+.rainbow-text span:nth-child(4) { animation-delay: 0.6s; }
+.rainbow-text span:nth-child(5) { animation-delay: 0.8s; }
+.rainbow-text span:nth-child(6) { animation-delay: 1s; }
+
+.rhythm-text {
+    display: inline-flex;
+    justify-content: center;
+}
+
+/* Animate colors smoothly */
+@keyframes colorShift {
+    0%   { color: rgb(255, 125, 125); }   /* Red */
+    20%  { color: rgb(255, 209, 122); }   /* Orange */
+    40%  { color: rgb(255, 255, 128); }   /* Yellow */
+    60%  { color: rgb(130, 255, 130); }   /* Green */
+    80%  { color: rgb(122, 122, 255); }   /* Blue */
+    100% { color: rgb(255, 125, 125); }   /* Back to Red */
+}
+
+.rhythm-text .letter {
+    display: inline-block;
+    animation: letterSpacing 2s ease forwards, colorShift 3s linear infinite;
+    transform-origin: center;
+}
+
+/* Animation for letter spacing */
+@keyframes letterSpacing {
+    from { transform: translateX(0); }
+    to { transform: translateX(var(--x-offset)); }
+}
+
+/* Offsets for each letter to create centered spacing */
+.rhythm-text .letter:nth-child(1) { --x-offset: -1.5em; animation-delay: 0s; }  
+.rhythm-text .letter:nth-child(2) { --x-offset: -0.9em; animation-delay: 0.3s; }  
+.rhythm-text .letter:nth-child(3) { --x-offset: -0.3em; animation-delay: 0.6s; }  
+.rhythm-text .letter:nth-child(4) { --x-offset: 0.3em; animation-delay: 0.9s; }   
+.rhythm-text .letter:nth-child(5) { --x-offset: 0.9em; animation-delay: 1.2s; }   
+.rhythm-text .letter:nth-child(6) { --x-offset: 1.5em; animation-delay: 1.5s; }
+
+/* Google Fonts */
+@import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
+
+/* Cursor */
+.cursor{
+    position: relative;
+    width: fit-content; /* Change from 24em to fit-content */
+    margin: 0 auto;
+    border-right: 2px solid rgba(255,255,255,.75);
+    font-size: 30px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    transform: translateY(-50%);    
+}
+/* Animation */
+.typewriter-animation {
+    animation: 
+        typewriter calc(var(--beat-duration) * 16) steps(44) calc(var(--beat-duration) * 2) 1 normal both,
+        blinkingCursor calc(var(--beat-duration) * 2) steps(44) infinite normal;
+    max-width: fit-content; /* Add max-width to contain the text */
+    margin: auto; /* Center the text */
+}
+
+@keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blinkingCursor{
+    from { border-right-color: rgba(255,255,255,.75); }
+    to { border-right-color: transparent; }
+}
